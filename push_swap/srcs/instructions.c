@@ -6,12 +6,14 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:51:36 by jtollena          #+#    #+#             */
-/*   Updated: 2023/12/20 13:11:46 by jtollena         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:33:15 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "head.h"
 
+
+/* SWAP PART */
 void	sa(t_stack *a)
 {
 	int	cpy;
@@ -36,17 +38,57 @@ void	ss(t_stack *a, t_stack *b)
 	sa(b);
 }
 
+/* MOVE FIRST INT PART */
+
+void	remove_top(t_stack *s)
+{
+	int		i;
+
+	i = 0;
+	while (i < s->size - 1)
+	{
+		s->nbrs[i] = s->nbrs[i + 1];
+		i++;
+	}
+	s->size = s->size - 1;
+}
+
+void	put_in(t_stack *s, t_stack *rem)
+{
+	int	i;
+	int	nb;
+
+	nb = rem->nbrs[0];
+	if (s->size > 0)
+	{
+		i = s->size - 1;
+		s->nbrs[s->size] = s->nbrs[s->size - 1];
+		while (i > 0)
+		{
+			s->nbrs[i] = s->nbrs[i - 1];
+			i--;
+		}
+		s->nbrs[i] = nb;
+	}
+	else
+		s->nbrs[0] = nb;
+	s->size = s->size + 1;
+	remove_top(rem);
+}
+
 void	pa(t_stack *a, t_stack *b)
 {
-	if (b->nbrs[0] != 0)
-		a->nbrs[0] = b->nbrs[0];
+	if (b->size > 0)
+		put_in(a, b);
 }
 
 void	pb(t_stack *a, t_stack *b)
 {
-	if (a->nbrs[0] != 0)
-		b->nbrs[0] = a->nbrs[0];
+	if (a->size > 0)
+		put_in(b, a);
 }
+
+/* FIRST BECOME LAST ROTATE PART */
 
 void	ra(t_stack *a)
 {
@@ -55,12 +97,12 @@ void	ra(t_stack *a)
 
 	i = 0;
 	first = a->nbrs[0];
-	while (a->nbrs[i + 1] != 0)
+	while (i < a->size)
 	{
 		a->nbrs[i] = a->nbrs[i + 1];
 		i++;
 	}
-	a->nbrs[i] = first;
+	a->nbrs[i - 1] = first;
 }
 
 void	rb(t_stack *b)
@@ -70,12 +112,12 @@ void	rb(t_stack *b)
 
 	i = 0;
 	first = b->nbrs[0];
-	while (b->nbrs[i + 1] != 0)
+	while (i < b->size)
 	{
 		b->nbrs[i] = b->nbrs[i + 1];
 		i++;
 	}
-	b->nbrs[i] = first;
+	b->nbrs[i - 1] = first;
 }
 
 void	rr(t_stack *a, t_stack *b)
@@ -84,24 +126,16 @@ void	rr(t_stack *a, t_stack *b)
 	ra(b);
 }
 
-int	stacklen(t_stack *s)
-{
-	int	ln;
-
-	ln = 0;
-	while (s->nbrs[ln] != 0)
-		ln++;
-	return (ln);
-}
+/* LAST BECOME FIRST ROTATE PART */
 
 void	rra(t_stack *a)
 {
 	int	last;
 	int	i;
 
-	i = stacklen(a) - 1;
-	last = a->nbrs[i];
-	while (a->nbrs[i - 1] != 0)
+	i = a->size;
+	last = a->nbrs[i - 1];
+	while (i > 0)
 	{
 		a->nbrs[i] = a->nbrs[i - 1];
 		i--;
@@ -114,9 +148,9 @@ void	rrb(t_stack *b)
 	int	last;
 	int	i;
 
-	i = stacklen(b) - 1;
-	last = b->nbrs[i];
-	while (b->nbrs[i - 1] != 0)
+	i = b->size;
+	last = b->nbrs[i - 1];
+	while (i > 0)
 	{
 		b->nbrs[i] = b->nbrs[i - 1];
 		i--;

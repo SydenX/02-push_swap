@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:06:15 by jtollena          #+#    #+#             */
-/*   Updated: 2023/12/20 13:00:50 by jtollena         ###   ########.fr       */
+/*   Updated: 2023/12/21 09:32:19 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 
 typedef struct s_stack {
 	int	*nbrs;
+	int	size;
 }	t_stack;
+void print_stack(t_stack s);
 
 void	sa(t_stack *a);
 void	sb(t_stack *b);

@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:05:54 by jtollena          #+#    #+#             */
-/*   Updated: 2023/12/20 13:56:37 by jtollena         ###   ########.fr       */
+/*   Updated: 2023/12/21 10:56:03 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@ void	error(char *str)
 {
 	ft_printf("Error\n%s\n", str);
 	exit(0);
+}
+
+void	print_stack(t_stack s)
+{
+	int	i = 0;
+	while (i < s.size)
+		ft_printf("%d ", s.nbrs[i++]);
+	ft_printf("\n");
 }
 
 int	are_int(char **argv, int size)
@@ -47,11 +55,11 @@ int	duplicated(t_stack stack)
 	int	k;
 
 	i = 0;
-	while (stack.nbrs[i] != 0)
+	while (i < stack.size)
 	{
 		j = 0;
 		k = 0;
-		while (stack.nbrs[j] != 0)
+		while (j < stack.size)
 		{
 			if (stack.nbrs[j] == stack.nbrs[i])
 			{
@@ -67,14 +75,69 @@ int	duplicated(t_stack stack)
 	return (0);
 }
 
+int	sorted(t_stack stack)
+{
+	int	i;
+
+	i = 0;
+	while (i + 1 < stack.size)
+	{
+		if (stack.nbrs[i] > stack.nbrs[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	execute(t_stack *a, t_stack *b, int actions)
+{
+	if (a->nbrs[0] > a->nbrs[1]){
+		sa(a);
+		ft_printf("SA\n");
+		actions++;
+		// print_stack(*a);
+		// print_stack(*b);
+	}
+	if (!sorted(*a)){
+		pb(a, b);
+		ft_printf("PB\n");
+		// print_stack(*a);
+		// print_stack(*b);
+		return (execute(a, b, actions+1));
+	}
+	else if (b->size > 1){
+		if (b->nbrs[0] < b->nbrs[1]){
+			sb(b);
+			ft_printf("SB\n");
+			actions++;
+			// print_stack(*a);
+			// print_stack(*b);
+		}
+		if (!sorted(*b)){
+			pa(a, b);
+			ft_printf("PA\n");
+			// print_stack(*a);
+			// print_stack(*b);
+			return (execute(a, b, actions+1));
+		}
+	} else if (b->size == 1){
+		pa(a, b);
+		ft_printf("PA\n");
+		actions++;
+		// print_stack(*a);
+		// print_stack(*b);
+	}
+	ft_printf("%d\n", actions);
+}
+
 void	create_stacks(char **argv, int size)
 {
 	int		i;
 	t_stack stack_a;
 	t_stack stack_b;
 
-	stack_a.nbrs = malloc((size) * sizeof(int));
-	stack_b.nbrs = malloc((size) * sizeof(int));
+	stack_a.nbrs = malloc((size - 1) * sizeof(int));
+	stack_b.nbrs = malloc((size - 1) * sizeof(int));
 
 	i = 0;
 	while (i < size - 1)
@@ -82,9 +145,13 @@ void	create_stacks(char **argv, int size)
 		stack_a.nbrs[i] = ft_atoi(argv[i]);
 		i++;
 	}
-	stack_a.nbrs[i] = 0;
+	stack_a.size = i;
+	stack_b.size = 0;
 	if (duplicated(stack_a))
 		error("Do not put duplicated numbers.");
+	if (sorted(stack_a))
+		error("List already sorted.");
+	execute(&stack_a, &stack_b, 0);
 }
 
 int	main(int argc, char **argv)
