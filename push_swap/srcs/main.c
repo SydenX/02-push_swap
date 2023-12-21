@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:05:54 by jtollena          #+#    #+#             */
-/*   Updated: 2023/12/21 10:56:03 by jtollena         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:32:13 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,45 +89,122 @@ int	sorted(t_stack stack)
 	return (1);
 }
 
+int	get_placein(int	nb, t_stack s)
+{
+	int	i;
+
+	i = 0;
+	while (i < s.size)
+	{
+		if (s.nbrs[i] == nb)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int	moves_totop(int nb, t_stack a)
+{
+	int	moves;
+	int	place;
+
+	moves = 1;
+	place = get_placein(nb, a);
+	if (place == 0)
+		return (0);
+	if (get_placein(nb, a) > a.size / 2)
+	{
+		while (place != a.size)
+		{
+			place++;
+			moves++;
+		}
+	}
+	else
+	{
+		while (place != 0)
+		{
+			place--;
+			moves++;
+		}
+	}
+	return (moves);
+}
+
+int	moves_togo(int nb, t_stack a, t_stack b)
+{
+	int	moves;
+	int	i;
+	int	smaller;
+
+	moves = moves_totop(nb, a);
+	if (b.nbrs[0] > nb)
+		return (moves + 1);
+	else
+	{
+		i = 0;
+		smaller = b.size;
+		while (i < b.size)
+		{
+			if (moves_totop(b.nbrs[i], b) < smaller && nb > b.nbrs[i])
+				smaller = moves_totop(b.nbrs[i], b);
+			i++;
+		}
+		moves += smaller;
+	}
+	return (moves + 1);
+}
+
 void	execute(t_stack *a, t_stack *b, int actions)
 {
-	if (a->nbrs[0] > a->nbrs[1]){
-		sa(a);
-		ft_printf("SA\n");
-		actions++;
-		// print_stack(*a);
-		// print_stack(*b);
-	}
-	if (!sorted(*a)){
+	if (actions == 0)
+	{
 		pb(a, b);
 		ft_printf("PB\n");
-		// print_stack(*a);
-		// print_stack(*b);
-		return (execute(a, b, actions+1));
+		pb(a, b);
+		ft_printf("PB\n");
+		actions += 2;
 	}
-	else if (b->size > 1){
-		if (b->nbrs[0] < b->nbrs[1]){
-			sb(b);
-			ft_printf("SB\n");
-			actions++;
-			// print_stack(*a);
-			// print_stack(*b);
-		}
-		if (!sorted(*b)){
-			pa(a, b);
-			ft_printf("PA\n");
-			// print_stack(*a);
-			// print_stack(*b);
-			return (execute(a, b, actions+1));
-		}
-	} else if (b->size == 1){
-		pa(a, b);
-		ft_printf("PA\n");
-		actions++;
-		// print_stack(*a);
-		// print_stack(*b);
-	}
-	ft_printf("%d\n", actions);
+	ft_printf("%d\n", moves_togo(87, *a, *b));
+
+	// return ;
+	// if (a->nbrs[0] > a->nbrs[1]){
+	// 	sa(a);
+	// 	ft_printf("SA\n");
+	// 	actions++;
+	// 	// print_stack(*a);
+	// 	// print_stack(*b);
+	// }
+	// if (!sorted(*a)){
+	// 	pb(a, b);
+	// 	ft_printf("PB\n");
+	// 	// print_stack(*a);
+	// 	// print_stack(*b);
+	// 	return (execute(a, b, actions+1));
+	// }
+	// else if (b->size > 1){
+	// 	if (b->nbrs[0] < b->nbrs[1]){
+	// 		sb(b);
+	// 		ft_printf("SB\n");
+	// 		actions++;
+	// 		// print_stack(*a);
+	// 		// print_stack(*b);
+	// 	}
+	// 	if (!sorted(*b)){
+	// 		pa(a, b);
+	// 		ft_printf("PA\n");
+	// 		// print_stack(*a);
+	// 		// print_stack(*b);
+	// 		return (execute(a, b, actions+1));
+	// 	}
+	// } else if (b->size == 1){
+	// 	pa(a, b);
+	// 	ft_printf("PA\n");
+	// 	actions++;
+	// 	// print_stack(*a);
+	// 	// print_stack(*b);
+	// }
+	// ft_printf("%d\n", actions);
 }
 
 void	create_stacks(char **argv, int size)
