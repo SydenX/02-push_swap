@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:51:36 by jtollena          #+#    #+#             */
-/*   Updated: 2023/12/21 10:33:15 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/08 13:17:06 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,33 @@
 
 
 /* SWAP PART */
-void	sa(t_stack *a)
+void	sa(t_stack *a, int ss)
 {
 	int	cpy;
 
 	cpy = a->nbrs[1];
 	a->nbrs[1] = a->nbrs[0];
 	a->nbrs[0] = cpy;
+	if (ss == 0)
+		ft_printf("sa\n");
 }
 
-void	sb(t_stack *b)
+void	sb(t_stack *b, int ss)
 {
 	int	cpy;
 
 	cpy = b->nbrs[1];
 	b->nbrs[1] = b->nbrs[0];
 	b->nbrs[0] = cpy;
+	if (ss == 0)
+		ft_printf("sb\n");
 }
 
 void	ss(t_stack *a, t_stack *b)
 {
-	sa(a);
-	sa(b);
+	sa(a, 1);
+	sa(b, 1);
+	ft_printf("ss\n");
 }
 
 /* MOVE FIRST INT PART */
@@ -80,17 +85,19 @@ void	pa(t_stack *a, t_stack *b)
 {
 	if (b->size > 0)
 		put_in(a, b);
+	ft_printf("pa\n");
 }
 
 void	pb(t_stack *a, t_stack *b)
 {
 	if (a->size > 0)
 		put_in(b, a);
+	ft_printf("pb\n");
 }
 
 /* FIRST BECOME LAST ROTATE PART */
 
-void	ra(t_stack *a)
+void	ra(t_stack *a, int rr)
 {
 	int	first;
 	int	i;
@@ -103,9 +110,11 @@ void	ra(t_stack *a)
 		i++;
 	}
 	a->nbrs[i - 1] = first;
+	if (rr == 0)
+		ft_printf("ra\n");
 }
 
-void	rb(t_stack *b)
+void	rb(t_stack *b, int rr)
 {
 	int	first;
 	int	i;
@@ -118,17 +127,20 @@ void	rb(t_stack *b)
 		i++;
 	}
 	b->nbrs[i - 1] = first;
+	if (rr == 0)
+		ft_printf("rb\n");
 }
 
 void	rr(t_stack *a, t_stack *b)
 {
-	ra(a);
-	ra(b);
+	ra(a, 1);
+	ra(b, 1);
+	ft_printf("rr\n");
 }
 
 /* LAST BECOME FIRST ROTATE PART */
 
-void	rra(t_stack *a)
+void	rra(t_stack *a, int rrr)
 {
 	int	last;
 	int	i;
@@ -141,9 +153,11 @@ void	rra(t_stack *a)
 		i--;
 	}
 	a->nbrs[i] = last;
+	if (rrr == 0)
+		ft_printf("rra\n");
 }
 
-void	rrb(t_stack *b)
+void	rrb(t_stack *b, int rrr)
 {
 	int	last;
 	int	i;
@@ -156,10 +170,13 @@ void	rrb(t_stack *b)
 		i--;
 	}
 	b->nbrs[i] = last;
+	if (rrr == 0)
+		ft_printf("rrb\n");
 }
 
 void	rrr(t_stack *a, t_stack *b)
 {
-	rra(a);
-	rra(b);
+	rra(a, 1);
+	rra(b, 1);
+	ft_printf("rrr\n");
 }
