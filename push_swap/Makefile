@@ -6,14 +6,23 @@
 #    By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 13:47:45 by jtollena          #+#    #+#              #
-#    Updated: 2024/01/09 09:30:52 by jtollena         ###   ########.fr        #
+#    Updated: 2024/01/09 11:27:05 by jtollena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
 SOURCES = srcs/main.c \
-			srcs/instructions.c
+			srcs/instructions_s.c \
+			srcs/instructions_p.c \
+			srcs/instructions_r.c \
+			srcs/instructions_rr.c \
+			srcs/estimations.c \
+			srcs/moves.c \
+			srcs/moves_helper.c \
+			srcs/sort.c \
+			srcs/stack_infos.c \
+			srcs/utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
 INCLUDES = includes
@@ -30,7 +39,7 @@ $(NAME): $(OBJECTS) $(INCLUDES)
 
 clean:
 	rm $(OBJECTS)
-	make -C libft/ clean
+#	make -C libft/ clean
 
 fclean:
 	rm $(OBJECTS)
