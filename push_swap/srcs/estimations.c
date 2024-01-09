@@ -6,11 +6,12 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:25:43 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 11:55:59 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:01:52 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "head.h"
+
 int	get_placein(int nb, t_stack s)
 {
 	int	i;
@@ -32,8 +33,8 @@ int	moves_togo(int nb, t_stack a, t_stack b)
 	int	smaller;
 	int	nearest;
 
-	moves = moves_totop(nb, a);
 	nearest = ft_nearest(nb, b);
+	moves = moves_totop(nb, a);
 	if (nearest < nb)
 		moves += moves_totop(nearest, b);
 	else

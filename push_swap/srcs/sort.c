@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:27:27 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 12:01:11 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:20:13 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	go_smaller_change(t_stack *a, t_stack *b)
 {
 	int	smaller;
+	int	nearest;
 
 	smaller = check_smaller_change(a, b);
+	nearest = ft_nearest(smaller, *b);
 	go_top(smaller, a, 1, 0);
 	go_nearest(smaller, a, b);
 	pb(a, b);
@@ -65,6 +67,10 @@ void	execute(t_stack *a, t_stack *b)
 	int	i;
 
 	i = 0;
+	while (a->size <= 5 && a->nbrs[0] > a->nbrs[a->size - 1])
+		rra(a, 0);
+	if (sorted(*a))
+		return ;
 	pb(a, b);
 	pb(a, b);
 	while (a->size > 3)

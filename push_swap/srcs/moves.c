@@ -6,57 +6,11 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:40 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 12:11:14 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:59:46 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "head.h"
-
-int	are_same_move(int nba, t_stack a, int nbb, t_stack b)
-{
-	int	placea;
-	int placeb;
-
-	placea = get_placein(nba, a);
-	placeb = get_placein(nbb, b);
-	if (placeb == 0 || placea == 0)
-		return (0);
-	if (get_placein(nba, a) + 1 > a.size / 2 && get_placein(nbb, b) + 1 > b.size / 2)
-		return 1;
-	else if (get_placein(nba, a) + 1 <= a.size / 2 && get_placein(nbb, b) + 1 <= b.size / 2)
-		return 1;
-	return (0);
-}
-
-int	moves_two_totop(int nba, t_stack a, int nbb, t_stack b)
-{
-	int	moves;
-	int	placea;
-
-	moves = 0;
-	placea = get_placein(nba, a);
-	placeb = get_placein(nba, a);
-	if (are_same_move(nba, a, nbb, b) == 1)
-	{
-		if (get_placein(nba, a) + 1 > a.size / 2 && get_placein(nbb, a) + 1 > b.size / 2)
-		{
-			while (placea != a.size && placeb != b.size){
-				placea++;
-				placeb++;
-				moves++;
-			}
-		}
-		else
-		{
-			while (placea != 0 && placeb != 0){
-				placea--;
-				placeb--;
-				moves++;
-			}
-		}
-	}
-	return (moves);
-}
 
 int	moves_totop(int nb, t_stack a)
 {

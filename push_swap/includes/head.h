@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:06:15 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 11:32:24 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:01:39 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define HEAD_H
 
 # include "libft.h"
-
+#include <stdio.h>
 typedef struct s_stack {
 	int	*nbrs;
 	int	size;
 }	t_stack;
-
+int count;
 void print_stack(t_stack s);
 
 void	sa(t_stack *a, int ss);
