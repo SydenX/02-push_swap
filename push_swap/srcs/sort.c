@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:27:27 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 15:20:13 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:35:00 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	set_higher(int nb, t_stack *a, t_stack *b, int i)
 
 void	sort_three(t_stack *a)
 {
-	if (a->nbrs[1] < a->nbrs[0])
+	if (a->nbrs[0] > a->nbrs[1])
 		sa(a, 0);
-	if (a->nbrs[2] < a->nbrs[1])
+	if (a->nbrs[1] > a->nbrs[2])
 		rra(a, 0);
-	if (a->nbrs[1] < a->nbrs[0])
+	if (a->nbrs[0] > a->nbrs[1])
 		sa(a, 0);
 }
 
