@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:40 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 12:08:58 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/09 12:09:31 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ int	moves_two_totop(int nba, t_stack a, int nbb, t_stack b)
 	moves = 0;
 	placea = get_placein(nba, a);
 	placeb = get_placein(nba, a);
-	while (are_same_move(nba, a, nbb, b) == 1)
+	if (are_same_move(nba, a, nbb, b) == 1)
 	{
-		while (placea != a.size && placeb != b.size)
-			moves
+		while (placea != a.size && placeb != b.size){
+			placea++;
+			placeb++;
+			moves++;
+		}
 	}
 	return (moves);
 }
