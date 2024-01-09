@@ -6,15 +6,15 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:05:54 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/08 15:18:51 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/09 09:47:10 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "head.h"
 
-void	error(char *str)
+void	error(int n)
 {
-	ft_printf("Error\n%s\n", str);
+	ft_printf("Error\n%d", n);
 	exit(0);
 }
 
@@ -164,7 +164,7 @@ int	moves_todown(int nb, t_stack a)
 int	max(t_stack s)
 {
 	int i = 0;
-	int max = -2147483648;
+	long max = -2147483649;
 	while (i < s.size)
 	{
 		if (s.nbrs[i] > max)
@@ -177,7 +177,7 @@ int	max(t_stack s)
 int	min(t_stack s)
 {
 	int i = 0;
-	int min = 2147483647;
+	long min = 2147483648;
 	while (i < s.size)
 	{
 		if (s.nbrs[i] < min)
@@ -219,7 +219,7 @@ int	moves_togo(int nb, t_stack a, t_stack b)
 
 int	check_smaller_change(t_stack *a, t_stack *b)
 {
-	int smaller = 2147483647;
+	long smaller = 2147483648;
 	int smallerInt = a->nbrs[0];
 	int i = 0;
 	while (i < a->size)
@@ -339,7 +339,7 @@ int	go_smaller_change(t_stack *a, t_stack *b)
 
 int set_higher(int nb, t_stack *a, t_stack *b)
 {
-	int higher = 2147483647;
+	long higher = 2147483648;
 	int i = 0;
 	int hashigher = 0;
 	int actions = 0;
@@ -419,29 +419,96 @@ void	create_stacks(char **argv, int size)
 	t_stack stack_b;
 
 	stack_a.nbrs = malloc((size - 1) * sizeof(int));
+	if (stack_a.nbrs == NULL)
+		return ;
 	stack_b.nbrs = malloc((size - 1) * sizeof(int));
+	if (stack_b.nbrs == NULL)
+		return (free(stack_a.nbrs));
 
 	i = 0;
 	while (i < size - 1)
 	{
+		if (ft_atoi(argv[i]) > 2147483647 || ft_atoi(argv[i]) < -2147483648)
+			return (free(stack_a.nbrs), free(stack_b.nbrs), error(10));
 		stack_a.nbrs[i] = ft_atoi(argv[i]);
 		i++;
 	}
 	stack_a.size = i;
 	stack_b.size = 0;
 	if (duplicated(stack_a))
-		error("Do not put duplicated numbers.");
+		return (free(stack_a.nbrs), free(stack_b.nbrs), error(1));
 	if (sorted(stack_a))
-		error("List already sorted.");
+		return (free(stack_a.nbrs), free(stack_b.nbrs), error(2));
 	execute(&stack_a, &stack_b, 0);
+	return (free(stack_a.nbrs), free(stack_b.nbrs));
+}
+
+int	get_int_in_str(char *str)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	size = 1;
+	while (i < ft_strlen(str))
+	{
+		while (str[i] != ' ' && str[i] != 0)
+			i++;
+		if (str[i++] != 0)
+			size++;
+	}
+	return (size);
+}
+#include <stdio.h>
+void	create_stacks_from_one(char *arg, int size)
+{
+	int		i;
+	int		j;
+	t_stack stack_a;
+	t_stack stack_b;
+
+	stack_a.nbrs = malloc((size) * sizeof(int));
+	if (stack_a.nbrs == NULL)
+		return ;
+	stack_b.nbrs = malloc((size) * sizeof(int));
+	if (stack_b.nbrs == NULL)
+		return (free(stack_a.nbrs));
+
+	i = 0;
+	j = 0;
+	while (i < ft_strlen(arg))
+	{
+		if (ft_atoi(&arg[i]) > 2147483647 || ft_atoi(&arg[i]) < -2147483648)
+			return (free(stack_a.nbrs), free(stack_b.nbrs), error(10));
+		stack_a.nbrs[j++] = ft_atoi(&arg[i]);
+		while (arg[i] != ' ' && arg[i] != 0){
+			if ((arg[i] >= '0' && arg[i] <= '9') || (arg[i] == '-' && (arg[i + 1] >= '0' && arg[i + 1] <= '9')))
+				i++;
+			else
+				return (free(stack_a.nbrs), free(stack_b.nbrs), error(3));
+		}
+		i++;
+	}
+	stack_a.size = j;
+	stack_b.size = 0;
+	if (duplicated(stack_a))
+		return (free(stack_a.nbrs), free(stack_b.nbrs), error(4));
+	if (sorted(stack_a))
+		return (free(stack_a.nbrs), free(stack_b.nbrs), error(5));
+	execute(&stack_a, &stack_b, 0);
+	return (free(stack_a.nbrs), free(stack_b.nbrs));
 }
 
 int	main(int argc, char **argv)
 {
-	if (argc == 2)
-		error("Put at least two numbers to sort.");
+	if (argc == 2){
+		if (get_int_in_str(argv[1]) >= 2)
+			create_stacks_from_one(argv[1], get_int_in_str(argv[1]));
+		else
+			return(error(6), 0);
+	}
 	else if (!are_int(argv, argc))
-		error("Please only put numbers.");
+		return(error(7), 0);
 	else if (argc > 2)
 		create_stacks(&argv[1], argc);
 	return (1);

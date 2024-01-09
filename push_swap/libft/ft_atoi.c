@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 21:40:44 by jtollena          #+#    #+#             */
-/*   Updated: 2023/12/11 12:59:08 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/09 09:30:35 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_isoverflow(unsigned long long nb, const char *str, int negation)
 	return (1);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	int					i;
 	int					negation;

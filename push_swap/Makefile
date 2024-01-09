@@ -6,7 +6,7 @@
 #    By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 13:47:45 by jtollena          #+#    #+#              #
-#    Updated: 2023/12/20 12:51:47 by jtollena         ###   ########.fr        #
+#    Updated: 2024/01/09 09:30:52 by jtollena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ FLAGS =  #-Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJECTS) $(INCLUDES)
-#	make -C libft/
+	make -C libft/
 	gcc $(OBJECTS) -Llibft -lft -o $(NAME)
 
 clean:
