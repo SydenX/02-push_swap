@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:06 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 11:04:30 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:24:59 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	get_int_in_str(char *str)
 {
-	int	size;
-	int	i;
+	int		size;
+	size_t	i;
 
 	i = 0;
 	size = 1;
@@ -48,7 +48,9 @@ int	are_int(char **argv, int size)
 	while (i < size)
 	{
 		j = 0;
-		if (argv[i][0] == '-')
+		if (argv[i][0] == '-' && (argv[i][1] < '0' || argv[i][1] > '9'))
+			return (0);
+		else if (argv[i][0] == '-')
 			j++;
 		while (argv[i][j])
 		{

@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:25:43 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 15:01:52 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:36:11 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	get_placein(int nb, t_stack s)
 int	moves_togo(int nb, t_stack a, t_stack b)
 {
 	int	moves;
-	int	i;
-	int	smaller;
 	int	nearest;
 
 	nearest = ft_nearest(nb, b);

@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:24:40 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 14:59:46 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:36:56 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,9 @@ int	go_down(int nb, t_stack *a, int stack, int moves)
 	return (moves);
 }
 
-int	go_nearest(int nb, t_stack *a, t_stack *b)
+int	go_nearest(int nb, t_stack *b)
 {
 	int	actions;
-	int	i;
 	int	nearest;
 
 	actions = 0;

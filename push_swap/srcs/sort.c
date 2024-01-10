@@ -6,7 +6,7 @@
 /*   By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:27:27 by jtollena          #+#    #+#             */
-/*   Updated: 2024/01/09 15:35:00 by jtollena         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:33:01 by jtollena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	go_smaller_change(t_stack *a, t_stack *b)
 	smaller = check_smaller_change(a, b);
 	nearest = ft_nearest(smaller, *b);
 	go_top(smaller, a, 1, 0);
-	go_nearest(smaller, a, b);
+	go_nearest(smaller, b);
 	pb(a, b);
 }
 
@@ -81,6 +81,11 @@ void	execute(t_stack *a, t_stack *b)
 		i++;
 		set_higher(b->nbrs[0], a, b, 0);
 	}
-	while (!sorted(*a))
-		rra(a, 0);
+	while (get_placein(min(*a), *a) != 0)
+	{
+		if (get_placein(min(*a), *a) > a->size / 2)
+			rra(a, 0);
+		else
+			ra(a, 0);
+	}
 }

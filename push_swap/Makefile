@@ -6,7 +6,7 @@
 #    By: jtollena <jtollena@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/30 13:47:45 by jtollena          #+#    #+#              #
-#    Updated: 2024/01/09 11:27:05 by jtollena         ###   ########.fr        #
+#    Updated: 2024/01/10 12:09:34 by jtollena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SOURCES = srcs/main.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 INCLUDES = includes
-FLAGS =  #-Wall -Wextra -Werror
+FLAGS =  -Wall -Wextra -Werror
 
 %.o: %.c
 	gcc $(FLAGS) -Ilibft -I $(INCLUDES) -c $< -o $@
@@ -39,7 +39,7 @@ $(NAME): $(OBJECTS) $(INCLUDES)
 
 clean:
 	rm $(OBJECTS)
-#	make -C libft/ clean
+	make -C libft/ clean
 
 fclean:
 	rm $(OBJECTS)
